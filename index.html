@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>42-CORRECTION-COUNTER</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg0: #1d2021;
+      --bg1: #282828;
+      --bg2: #32302f;
+
+      --fg: #d4be98;
+
+      --red: #ea6962;
+      --green: #a9b665;
+      --yellow: #d8a657;
+      --orange: #e78a4e;
+
+      --gray: #7c6f64;
+    }
+
+    body {
+      background: var(--bg0);
+      color: var(--fg);
+      font-family: "JetBrains Mono", monospace;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    h1 {
+      color: var(--orange);
+    }
+
+    #hearts {
+      font-size: 40px;
+      margin: 25px 0;
+      min-height: 70px;
+    }
+
+    .heart {
+      margin: 8px;
+      cursor: pointer;
+      color: var(--red);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .heart:hover {
+      transform: scale(1.25);
+      color: #ff7a72;
+    }
+
+    button {
+      background: var(--bg2);
+      color: var(--fg);
+      border: 2px solid var(--gray);
+      padding: 10px 16px;
+      font-size: 15px;
+      margin: 6px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+
+    button:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    #message {
+      font-size: 26px;
+      color: var(--red);
+      margin-top: 25px;
+      font-weight: bold;
+    }
+
+    #credit {
+      position: fixed;
+      right: 12px;
+      bottom: 12px;
+      color: var(--gray);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    #credit a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    #credit a:hover {
+      color: var(--yellow);
+    }
+  </style>
+</head>
+
+<body>
+
+<h1><i class="fa-solid fa-heart"></i> 42-CORRECTION-COUNTER</h1>
+
+<button onclick="addHeart()">➕ Add Heart</button>
+<button onclick="resetHearts()">🔄 Reset</button>
+
+<div id="hearts"></div>
+<div id="message"></div>
+
+<div id="credit">
+  idea of <a href="https://github.com/amwadud" target="_blank">amwadud</a>
+</div>
+
+<script>
+
+const maxHearts = 7;
+let currentHearts = 7;
+
+function renderHearts() {
+  const container = document.getElementById("hearts");
+  const message = document.getElementById("message");
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < currentHearts; i++) {
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-heart heart";
+
+    icon.onclick = function () {
+      currentHearts--;
+      renderHearts();
+    };
+
+    container.appendChild(icon);
+  }
+
+  if (currentHearts === 0) {
+    message.innerHTML = "💀 Mission failed, we'll get 'em next time.";
+  } else {
+    message.innerHTML = "";
+  }
+}
+
+function addHeart() {
+  if (currentHearts < maxHearts) {
+    currentHearts++;
+    renderHearts();
+  }
+}
+
+function resetHearts() {
+  currentHearts = 7;
+  renderHearts();
+}
+
+renderHearts();
+
+</script>
+
+</body>
+</html>
